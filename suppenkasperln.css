@@ -1,0 +1,346 @@
+/* mobile */
+[class*="col-"] {
+    width: 100%;
+}
+
+/* tablets */
+@media only screen and (min-width: 600px){
+  .col-m-1 {width: 8.33%;}
+  .col-m-2 {width: 16.66%;}
+  .col-m-3 {width: 25%;}
+  .col-m-4 {width: 33.33%;}
+  .col-m-5 {width: 41.66%;}
+  .col-m-6 {width: 50%;}
+  .col-m-7 {width: 58.33%;}
+  .col-m-8 {width: 66.66%;}
+  .col-m-9 {width: 75%;}
+  .col-m-10 {width: 83.33%;}
+  .col-m-11 {width: 91.66%;}
+  .col-m-12 {width: 100%;}
+
+}
+
+/* desktops */
+
+@media only screen and (min-width: 768px){
+
+#wrapper {width: 768px;}
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+
+
+}
+
+@media only screen and (min-width: 1024px){
+
+#wrapper {width: 1024px;}
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+
+
+}
+
+[class*="col-"] {
+    float: left;
+}
+
+
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+body {
+  box-sizing: border-box;
+
+    background: -webkit-linear-gradient(left, rgb(15,151,173), lightcyan, rgb(15,151,173)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(left, rgb(15,151,173), lightcyan, rgb(15,151,173)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(left, rgb(15,151,173), lightcyan, rgb(15,151,173)); /* For Fx 3.6 to 15 */
+    background: linear-gradient(to right,rgb(15,151,173), lightcyan,  rgb(15,151,173)); /* Standard syntax (must be last) */
+
+    font-family: "Gill Sans MT", Calibri, sans-serif;
+    font-size: 100%;
+
+
+}
+
+h1 {
+  font-size: 2em;
+  font-variant: small-caps;
+}
+
+h2 {
+    font-size: 1.875em;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+#header img {
+    padding: 1em 0 1em 2em;
+    width: 50%;
+    max-width: 100%;
+    height: auto;
+}
+
+#wrapper {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#header {
+  background: #eee;
+}
+
+#mainScreen {
+
+
+
+}
+
+#kitchenTable {
+
+  background: no-repeat white url("img/kitchen_background-03.png") 50%/100%;
+
+
+
+}
+
+#kitchenTable img{
+
+  vertical-align: top;
+    width: 100%; /* max width */
+    opacity: 0;  /* make it transparent */
+}
+
+#sideScreen {
+  background: darkgrey url('img/bg_sidescreen.png') no-repeat 50%/90%;
+  position:relative;
+
+}
+
+img#sideScreenBg {
+  vertical-align: top;
+  width: 85%;
+  opacity: 0;
+
+}
+
+#sideScreen h1 {
+  color: rgb(15,151,173);
+  /*display: flex;
+  justify-content: center;*/
+  position: absolute;
+  z-index: 5;
+  top: -2em;
+  left: 2em;
+
+}
+
+#sideScreen>div {
+
+/*  background-color: white;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  width: 90%;
+  min-height: 300px;
+  position: absolute;
+  margin: 2em;
+  padding: 0.1em;
+
+*/
+
+
+}
+
+
+
+#sideScreen>div{
+  /*
+  background-color: white;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  border-style: dashed;
+  width: 87%;
+  min-height: 300px;
+  padding: 1em;*/
+  display:none;
+
+
+}
+
+#sideScreen div.active{
+  display: block;
+}
+
+#sideScreen>div#eaters {
+  border-color: rgb(105,168,64);
+
+}
+
+div#eaterOptions{
+  position: absolute;
+  margin-bottom: 4em;
+  top: 2em;
+}
+
+div#eaterPreferences{
+  position: relative;
+  bottom: 2em;
+}
+
+
+div#likes img, div#dislikes img, div#allergens img{
+
+  position: absolute;
+  height: 2em;
+  top: -1em;
+  left: 2em;
+  z-index: 5;
+}
+
+div#likes, div#dislikes, div#allergens{
+
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  position: absolute;
+  z-index: 5;
+
+  float: left;
+  margin: 1%;
+  width: 30%;
+  min-height: 100px;
+  margin-top: 50%;
+
+}
+
+div#likes {
+  background: rgba(220,144,21,0.3);
+}
+
+div#dislikes{
+  background: rgba(15,151,173,0.3);
+
+}
+
+div#allergens{
+  background: rgba(162,24,36,0.3);
+
+}
+
+#avatar{
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  left: 35%;
+  top: 2em;
+  z-index: 5;
+
+}
+
+
+
+#sideScreen div div#ingredients {
+  border-color: rgb(220,144,21);
+
+}
+
+#sideScreen div div#recipes {
+  border-color: rgb(15,151,173);
+
+}
+
+#kitchenDesk {
+  background-color: #555;
+  min-height: 100px;
+  position: relative;
+}
+
+#kitchenDesk img {
+  height: 10em;
+  margin-left: 1em;
+
+}
+
+#dropRecipes {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.5) url('img/drag_drop.png') center no-repeat;
+  background-size: 15%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40%;
+  margin: 0.5em;
+  min-height: 90%;
+}
+
+#footer {
+  padding-left: 1%;
+  background: grey;
+  color: lightgrey;
+  height: 1.2em;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  position:absolute;
+  left: -20px;
+}
+
+li.tab {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+
+}
+
+li.tab img{
+  height: 5em;
+}
+
+li.tab:hover {
+
+}
+
+li.tab a{
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+
+li.tabSelected {
+  z-index: 999;
+
+}

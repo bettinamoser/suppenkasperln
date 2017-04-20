@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+	<title>Suppenkasperln</title>
+	<meta charset="utf-8">
+<script src="../jquery-3.1.1.min.js"></script>
+	<script>
+
+var handleDropped = function(e){
+    console.log('something was dropped');
+  var files = e.originalEvent.dataTransfer.files;
+  var sendData = new FormData();
+  $.each(files, function(i,file){
+    console.log( file );
+
+
+    sendData.append('file', file);
+    sendData.append('test', 123);
+
+
+
+
+
+
+  });
+
+  $.ajax({
+    url: 'http://www.bettinamoser.at/suppenkasperln/interface.php',
+    type: 'POST',
+    dataType: 'script',
+    cache: false,
+    contentType: false,
+    processData: false,
+    data: sendData,
+    success: function(responseData){
+      console.log('data from server',responseData);
+
+    },
+    error: function(error){
+      console.log('ajax anfrage fehlgeschlagen', error);
+
+    },
+    complete: function(){
+      console.log('ajax anfrage gemacht');
+    }
+
+
+  });
+
+};
+
+$( document ).ready(function() {
+    console.log('hier bin ich, teste ajax');
+    $('#dropZone').on('drag dragstart dragend dragenter dragover dragleave drop', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+    });
+
+    $('#dropZone').on('drop', handleDropped);
+
+
+
+});
+
+	</script>
+	<style>
+
+  #dropZone {
+    height: 300px;
+    width: 400px;
+    border: 1px solid;
+  }
+	</style>
+</head>
+<body>
+<p>Teste Schnittstelle...</p>
+<div id="dropZone"></div>
+
+
+</body>
+</html>
