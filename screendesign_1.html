@@ -3,11 +3,13 @@
 <head>
 	<title>Suppenkasperln</title>
 	<meta charset="utf-8">
+
 	<script src="jquery-3.1.1.min.js"></script>
+	<script src="jquery_ui/jquery-ui.js"></script>
+
 	<script src="suppenkasperln.js"></script>
-	<script>
-	</script>
 	<link href="suppenkasperln_1.css" rel="stylesheet">
+	<link rel="stylesheet" href="jquery_ui/jquery-ui.css">
 </head>
 <body>
   <div id="wrapper">
@@ -16,21 +18,20 @@
       <div class="col-3 col-m-12"> Username | Logout</div>
     </div>
     <div class="row" id="mainScreen">
-      <div class="col-7 col-m-12" id="kitchenTable"><img src="img/kitchen_background-03.png"/></div>
-      <div class="col-5 col-m-12" id="sideScreen">
 				<ul>
 					<li class="tab tabSelected" ><a href="#eaters"><img src="img/tab_green.png" ></a></li>
 					<li class="tab" ><a href="#ingredients"><img src="img/tab_orange.png" ></a></li>
 					<li class="tab" ><a href="#recipes"><img src="img/tab_cyan.png" ></a></li>
 				</ul>
-				<div id="eaters" class="active" >
-					<img src="img/bg_sidescreen.png" id="sideScreenBg">
+				<div id="eaters" class="active">
 					<h1>Personen Detail</h1>
-						<div id="eaterOptions">
-							<input type="text" value="personenname" id="eaterName">
-							<button>speichern</button><button>löschen</button><br>
-							<img src="img/eater_girl2.svg" id="avatar">
+							<div id="eaterOptions">
+								<input type="text" value="personenname" id="eaterName">
+								<button>speichern</button><button>löschen</button>
 						</div>
+
+							<img src="img/eater_girl2.svg" id="avatar">
+
 						<div id="eaterPreferences">
 							<div id="dislikes"><img src="img/broken_heart.png"></div>
 							<div id="likes"><img src="img/heart.png"></div>
@@ -38,19 +39,29 @@
 						</div>
 				</div>
 
-				<div id="eatersAll" >
-					<h1>Personen</h1>
-					<img src="img/eater_girl2.svg" class="tinyAvatar">
-					<img src="img/eater_girl1.svg" class="tinyAvatar">
-					<img src="img/eater_boy1.svg" class="tinyAvatar">
-					<img src="img/eater_boy2.svg" class="tinyAvatar">
-				</div>
+
+									<div id="eatersAll" >
+										<h1>Personen</h1>
+										<img src="img/eater_girl2.svg" class="tinyAvatar" id="eater1" class="draggable ui-widget-content">
+									<img src="img/eater_girl1.svg" class="tinyAvatar" id="eater2" class="draggable ui-widget-content" >
+
+										<img src="img/eater_boy2.svg" class="tinyAvatar" id="eater4" class="draggable ui-widget-content">
+										<img src="img/eater_boy2.svg" class="tinyAvatar" id="eater5" class="draggable ui-widget-content">
+
+										<img src="img/eater_boy1.svg" class="tinyAvatar" id="eater3" class="draggable ui-widget-content">
+
+										<div id="snaptarget" class="ui-widget-header">
+						  				<p>I'm a snap target</p>
+										</div>
+									</div>
+
 
 				<div id="ingredients">ingredients</div>
 				<div id="recipes">recipes</div>
-				<!--<img src="img/bg_sidescreen.png" id="sideScreenBg">-->
 
-			</div>
+
+
+
     </div>
 		<div class="row">
   <div class="col-12 col-m-12" id="kitchenDesk"><img src="img/schneidbrett.png"><div id="dropRecipes"><br></div></div>
