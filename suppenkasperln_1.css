@@ -87,7 +87,7 @@ body {
 
 h1 {
   font-size: 2em;
-  font-variant: small-caps;
+  margin: 0;
 }
 
 h2 {
@@ -111,53 +111,257 @@ h3 {
 }
 
 #header {
-  background: #eee;
+  background: white;
 }
 
 #mainScreen {
-  background: no-repeat white url("img/main_background.png");
+  background: no-repeat white url("img/bg_suppenkasperln.png");
   position: relative;
+vertical-align: top;
   width: 1024px;
-  height: 500px;
+  height: 558px;
 }
 
-#eaters{
+#table{
+  user-select: none;
+  content: url("img/table.png");
+  position: absolute;
+  z-index: 10;
+  left: 8em;
+  bottom: 30%;
+  height: 8em;
+
+}
+
+#chairLeft, #chairRight { bottom: 32%;}
+
+#chairLeft { left: 4em; }
+#chairLeftMiddle {left: 11em;}
+#chairMiddle {left: 18em;}
+#chairRightMiddle {left: 25em;}
+#chairRight {left: 32em;}
+
+
+/*
+.chair{
+
+  position: absolute;
+  z-index: 2;
+  bottom: 37%;
+  height: 9em;
+}*/
+
+.chair {
+  position: absolute;
+  z-index: 2;
+  bottom: 37%;
+  height: 9em;
+}
+
+.chair img {
+  position: absolute;
+  z-index: 2;
+
+}
+
+#mainScreen>div>h1{
+  position: absolute;
+  top: -1.5em;
+  right: 2em;
+}
+
+.active{
+  display: block;
+}
+
+
+#eaters h1, #eatersAll h1{
+  color: green;
+}
+
+#ingredients h1{
+  color: orange;
+}
+
+#recipes h1{
+  color: rgb(15,151,173);
+}
+
+#eaters:not(.active){
   display:none;
 }
 
-#eatersAll{
-  display:block;
+#eatersAll:not(.active){
+  display:none;
 }
 
-#eatersAll img{
+#ingredients:not(.active){
+  display:none;
+}
+
+#recipes:not(.active){
+  display:none;
+}
+
+#recipeDetail:not(.active){
+  display:none;
+}
+
+#recipeDetail{
+
+}
+
+#ingredients{
+  width: 30%;
+  margin-left: 67%;
+  padding-top: 2em;
+  max-height: 400px;
+
+/*
+  right: 2em;
+  top: 2em;
+  width: 30%;
+  height: 400px;
+  bottom: 12em;
+*/
+
+}
+
+#ingredients>div{
+/*  position: absolute;*/
+  top: 2em;
+  right: 1.5em;
+  left: auto;
+  bottom: 15em;
+  width: 100%;
+  z-index: 3;
+
+}
+
+#dropIngredients{
+  position: absolute;
+  height: 25%;
+  width:30%;
+  bottom: 0.5em;
+  left: 3.5em;
+
+  z-index: 0;
+
+}
+
+
+
+
+
+#ingredientAccordion .ui-accordion-content{
+  max-height: 100px;
+  background-color: none;
+  /*width: 100%;*/
+}
+
+.ingredient{
+  position: static;
+  float: left;
+  margin: 0.5em;
+  height: 2em;
+}
+
+.ingredientDraggable{
+  position: absolute;
+  z-index: 10;
+  height: 5em;
+}
+
+.ingredientDropped{
+
+  z-index: 10;
+  height: 3em;
+  margin: 0.7em;
+}
+
+.ingredientName{
+  position: absolute;
+  border: #eee solid thin;
+  background-color: #fff;
+}
+
+#eaters{
+  width: 30%;
+  margin-left: 67%;
+  padding-top: 2em;
+  height: 400px;
+}
+
+
+
+
+#eaterOrigin{
+  position: absolute;
+  top: 2em;
+  right: 1.5em;
+  width: 33%;
+  bottom: 30%;
+  background-color: white;
+  z-index: 3;
+
+}
+
+#eaterOrigin .originAvatar{
+  position: static !important;
+  margin: 0.5em;
+  height: 8em;
+  float: left;
+
+
+}
+
+.tinyAvatar:hover, .originAvatar:hover {
+  background-color: rgba(15,151,173,0.2);
+}
+
+.sittingAvatar:hover {
+
+
+}
+
+
+
+
+.avatar{
+  position: static;
+  float: left;
+  margin: 0.5em;
+  height: 6em;
+}
+
+.avatarDraggable{
+  position: absolute;
+  z-index: 10;
+  height: 12em;
+}
+
+.avatarDropped{
+position: absolute;
+  z-index: 10;
+  height: 12em;
+  margin: 0.7em;
+}
+
+
+.tinyAvatar{
+  position: absolute !important;
+  z-index: 5;
   height: 8em;
 }
 
-
-.ui-widget-header{
-
-  position: absolute;
-  z-index: 0;
-  left: 50%;
-  width: 100px;
-  height: 150px;
+.sittingAvatar{
+  position: absolute !important;
+  z-index: 5;
+  height: 12em;
 }
 
 
 
-div#eaterOptions{
-  position: absolute;
-  margin-bottom: 4em;
-  right: 2em;
-  top: 2.5em;
-}
-
-div#eaterPreferences{
-  width: 30%;
-  position: absolute;
-  bottom: 2em;
-  right: 1em;
-}
 
 
 div#likes img, div#dislikes img, div#allergens img{
@@ -196,32 +400,52 @@ div#dislikes{
 
 div#allergens{
   background: rgba(162,24,36,0.3);
+}
+
+
+
+div#eaterOptions{
+  position: absolute;
+  width: 34%;
+  right: 0.8em;
+  top: 1em;
+  margin-bottom: 4em;
 
 }
 
-#avatar{
-  margin-left: auto;
-  margin-right: auto;
+div#eaterPreferences{
+  width: 34%;
   position: absolute;
-  right: 13%;
-  top: 5em;
+  bottom: 1em;
+  right: 0.8em;
+
+}
+
+#detailAvatar{
+
+  position: absolute;
+
+  height:9em;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
   z-index: 5;
 
 }
 
+#eaterName{
+  position: absolute;
+  top: 10em;
+  margin-left: auto;
+  margin-right: auto;
 
-
-#kitchenDesk {
-  background-color: #555;
-  min-height: 100px;
-  position: relative;
+  z-index: 7;
+  border: none;
+  background-color: rgba();
 }
 
-#kitchenDesk img {
-  height: 10em;
-  margin-left: 1em;
 
-}
 
 #dropRecipes {
   -webkit-border-radius: 10px;
@@ -230,11 +454,11 @@ div#allergens{
   background: rgba(255,255,255,0.5) url('img/drag_drop.png') center no-repeat;
   background-size: 15%;
   position: absolute;
-  top: 0;
+  bottom: 0;
   right: 0;
-  width: 40%;
-  margin: 0.5em;
-  min-height: 90%;
+  width: 35%;
+  margin: 0.7em;
+  height: 22%;
 }
 
 #footer {
@@ -248,7 +472,8 @@ ul {
   margin: 0;
   padding: 0;
   position:absolute;
-  left: 643px;
+  top: 2px;
+  left: 610px;
 }
 
 li.tab {

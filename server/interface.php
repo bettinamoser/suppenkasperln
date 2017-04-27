@@ -23,9 +23,7 @@ function get_from_db($stmt){
    if($pdo){
 
   $statement = $pdo->query($stmt);
-  if(! $statement){
-     return '{"error" : "DB-Abfrage Fehler, im Statement"}';
-   }
+  if(! $statement) return false;
 
   $all = $statement->fetchAll(PDO::FETCH_CLASS);
 
@@ -72,11 +70,10 @@ function insert_update($stmt){
 
 }
 
-if( isset($_REQUEST["type"])){
-  switch($_REQUEST["type"]){
 
-//if( isset($_POST["type"])){
-  //switch($_POST["type"]){
+
+if( isset($_POST["type"])){
+  switch($_POST["type"]){
     case "get_eaters":
     /*
     Personen - Abfrage aller Personen
@@ -208,8 +205,6 @@ if( isset($_REQUEST["type"])){
         ]
     }
           */
-
-
           if(isset($_POST["categorie"])){
               $categorie = $_POST["categorie"];
               $stmt = "SELECT * FROM ingredients WHERE categorie = '".$categorie."'";
@@ -235,11 +230,9 @@ if( isset($_REQUEST["type"])){
     $stmt = "SELECT ingredient_id FROM ingredient_allergens WHERE allergen_id = '".$allergen."'";
     echo get_from_db($stmt);
       break;
-    case 'files':
-    echo json_encode(scandir("data/recipes"));
+    case 'file':
 
       break;
-
     default:
       echo '{"error" : "type-parameter ist ungültig: '.$_POST["type"].'"}';
 
@@ -280,32 +273,35 @@ RESPONSE: JSON(STR)
 }
 */
 
+$upload_success = null;
+ $upload_error = '';
 
  //var_dump($_FILES);
 
  if (!empty($_FILES['file'])) {
 
-
-$target_dir = "data/recipes/";
+   $target_dir = "data/recipes/";
 $target_file = $target_dir . basename($_FILES["file"]["name"]);
-
+$uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-/*
+// Check if image file is a actual image or fake image
+if(isset($_POST["submit"])) {
     $check = getimagesize($_FILES["file"]["tmp_name"]);
     if($check !== false) {
-        echo "File is an image - " . $check["mime"] . ".";
-
+    //    echo "File is an image - " . $check["mime"] . ".";
+        $uploadOk = 1;
     } else {
-        echo "File is not an image.";
-
+      //  echo "File is not an image.";
+        $uploadOk = 0;
     }
-*/
+
     if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-        echo "success";
+      //  echo "The file ". basename( $_FILES["file"]["name"]). " has been uploaded.";
     } else {
-        echo "{'error':'fehler bei upload'}";
+      echo '{error: "Error while uploading File"}';
+      //  echo "Sorry, there was an error uploading your file.";
     }
-//}
+}
    /*
      the code for file upload;
      $upload_success – becomes "true" or "false" if upload was unsuccessful;

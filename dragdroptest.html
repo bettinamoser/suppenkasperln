@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+<head>
+	<title>Suppenkasperln</title>
+	<meta charset="utf-8">
+
+	<script src="jquery-3.1.1.min.js"></script>
+	<script src="jquery_ui/jquery-ui.js"></script>
+
+<script>
+
+$.ajaxSetup({
+  url: 'http://www.bettinamoser.at/suppenkasperln/interface.php',
+  type: 'POST'
+});
+
+var categorieNames = {
+  'vegetables':'Gemüse',
+  'fruits':'Obst',
+  'meat_fish':'Fleisch und Fisch',
+  'cereals':'Getreide und Getreideprodukte',
+  'milk':'Milch und tierische Produkte',
+  'spices':'Gewürze und Kräuter'
+};
+
+var ingredientsPath = 'img/ingredients/';
+var categories = [];
+var ingredients = [];
+
+$(document).ready(function(){
+  getIngredients();
+});
+
+var getIngredients = function(){
+  $.ajax({
+    data: {type:"get_ingredients"},
+    success: function(responseData){
+      console.log('data from server',responseData);
+      var ingredients = JSON.parse(responseData);
+
+      if(ingredients.error){ console.log(ingredients.error); return; }
+
+      ingredients.forEach(function(val){
+        console.log('length', $('#'+val.ingredient_cat).length);
+        if( ! $('div[data-cat="'+val.ingredient_cat+'"]').length){
+          console.log('div erstellnen...')
+          //h3 erstellen
+          $('<h3>')
+            .attr('data-cat',val.ingredient_cat)
+            .html(categorieNames[val.ingredient_cat])
+            .appendTo('#ingredientAccordion');
+          //div erstellen
+          $('<div>')
+            .attr('data-cat',val.ingredient_cat)
+            .appendTo('#ingredientAccordion');
+        }
+        var img = $('<img>')
+                    .attr('src', ingredientsPath+val.ingredient_cat+'/'+val.ingredient_img)
+                    .attr('alt', val.ingredient_name)
+                    .attr('data-id', val.ingredient_id)
+                    .addClass('ingredient');
+
+        $('div[data-cat="'+val.ingredient_cat+'"]','#ingredientAccordion').append(img);
+
+        /*** Drag&Drop Ingredients ***/
+        $('.ingredient').draggable({
+          classes: {
+            "ui-draggable-dragging": "ingredientDraggable"
+          },
+         snap: "#dropIngredients",
+          snapTolerance: 50,
+          helper: 'clone',
+         zIndex: 11,
+          revert: 'invalid'
+        }); //ingredient draggable
+
+
+        $('#dropIngredients').droppable({
+          accept: '.ingredient',
+          over: function(event, ui){
+          //  $(this).css({backgroundColor: 'magenta'});
+
+          },
+          drop: function(event, ui){
+            console.log('something was dropped');
+
+           $(this).append(ui.draggable.detach().removeClass('ingredient').addClass('ingredientDropped'));
+          // ui.draggable.helper.addClass('ingredientDropped');
+
+          },
+          out: function(event, ui){
+
+          }
+
+        }); //ingredient droppable
+
+
+      });
+
+      /*** Accordion for Categories of Ingredients ***/
+     $('#ingredientAccordion').accordion({heightStyle: "fill"});
+
+    },
+    error: function(error){
+      console.log('ajax anfrage fehlgeschlagen');
+    }
+  });
+}
+</script>
+	<link href="suppenkasperln_1.css" rel="stylesheet">
+	<link rel="stylesheet" href="jquery_ui/jquery-ui.css">
+</head>
+<body>
+
+
+
+				<div id="ingredients" class="active"><h1>Zutaten</h1>
+
+
+					<div id="ingredientAccordion">
+					</div>
+
+
+				</div>
+				<div id="dropIngredients"></div>
+
+
+
+
+
+
+</body>
+</html>

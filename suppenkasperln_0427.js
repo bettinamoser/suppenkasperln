@@ -359,7 +359,7 @@ $( document ).ready(function() {
 
   getIngredients();
   getEaters();
-  //getRecipes();
+  getRecipes();
 
 
 
