@@ -236,7 +236,14 @@ if( isset($_REQUEST["type"])){
     echo get_from_db($stmt);
       break;
     case 'files':
-    echo json_encode(scandir("data/recipes"));
+    $files = array();
+
+    $filenames = scandir("data/recipes");
+    foreach($filenames as $index=>$filename){
+
+      if(mime_content_type("data/recipes/".$filename)=="text/plain") array_push($files,"data/recipes/".$filename);
+    }
+    echo json_encode($files);
 
       break;
 

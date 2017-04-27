@@ -176,11 +176,11 @@ vertical-align: top;
 
 
 #eaters h1, #eatersAll h1{
-  color: green;
+  color: rgb(105,168,64);
 }
 
 #ingredients h1{
-  color: orange;
+  color: rgb(220,144,21);
 }
 
 #recipes h1{
@@ -286,10 +286,15 @@ vertical-align: top;
 }
 
 #eaters{
+  position: relative;
   width: 30%;
   margin-left: 67%;
-  padding-top: 2em;
-  height: 400px;
+  padding-top: 1em;
+  height: 390px;
+}
+
+#eaters button{
+  float: right;
 }
 
 
@@ -369,7 +374,7 @@ div#likes img, div#dislikes img, div#allergens img{
   position: absolute;
   height: 2em;
   top: -1em;
-  left: 2em;
+  left: 40%;
   z-index: 5;
 }
 
@@ -405,44 +410,42 @@ div#allergens{
 
 
 div#eaterOptions{
-  position: absolute;
-  width: 34%;
-  right: 0.8em;
+  position: relative;
   top: 1em;
-  margin-bottom: 4em;
+  margin-bottom: 2em;
 
 }
 
 div#eaterPreferences{
-  width: 34%;
+  width: 100%;
   position: absolute;
   bottom: 1em;
-  right: 0.8em;
+
 
 }
 
 #detailAvatar{
 
   position: absolute;
-
   height:9em;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
+  right:40%;
   z-index: 5;
 
 }
 
 #eaterName{
   position: absolute;
-  top: 10em;
-  margin-left: auto;
-  margin-right: auto;
-
+  top: 12em;
+  right: 30%;
   z-index: 7;
-  border: none;
-  background-color: rgba();
+  border: 1px dashed rgb(105,168,64);
+  border-radius: 4px;
+  text-align: center;
+  background-color: rgba(105,168,64,0.3);
+}
+
+#eaterName:focus{
+  background-color: rgba(105,168,64,0.5);
 }
 
 
@@ -459,6 +462,10 @@ div#eaterPreferences{
   width: 35%;
   margin: 0.7em;
   height: 22%;
+}
+
+#fileCheckboxes{
+  border: none;
 }
 
 #footer {
