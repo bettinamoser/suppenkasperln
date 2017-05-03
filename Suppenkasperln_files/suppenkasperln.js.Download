@@ -20,7 +20,7 @@ var recipePhotoPath = 'data/recipes/';
 var persons = []; //array where all persons are included index=eater_id
 
 var loadedRecipes = []; //array where all loaded recipes are included
-//var activeRecipes = []; //index: recipe index, val is boolean
+var activeRecipes = []; //index: recipe index, val is boolean
 var recipeFiles = []; //which recipe belongs to which file
 
 var allLikes = []; //array for all Likes(values are not unique!)
@@ -45,9 +45,6 @@ var Person = function(optionsObj){
 
 };
 
-
-
-
 Person.prototype.setPreferencesFromDB = function(){
     var thisPerson = this;
   $.ajax({
@@ -61,16 +58,13 @@ Person.prototype.setPreferencesFromDB = function(){
 
         if(val.likes==0){ //meaning dislikes
           thisPerson.setPreference(val.ingredient_name,'dislikes');
-          console.log('dislike ',val.ingredient_name, thisPerson.options.name);
-        }
-        if(val.likes == 1){ //meaning likes
+        }else if(val.likes == 1){ //meaning likes
           thisPerson.setPreference(val.ingredient_name,'likes');
-          console.log('like ',val.ingredient_name, thisPerson.options.name);
         }
 
       });
-      //console.log('all Likes', allLikes);
-    //  console.log('all DisLikes', allDisLikes);
+      console.log('all Likes', allLikes);
+      console.log('all DisLikes', allDisLikes);
     },
     error: function(error){
       console.log('get_eaterpreferences anfrage fehlgeschlagen', error);
@@ -115,65 +109,16 @@ Person.prototype.delete = function(){
 
 };
 
+Person.prototype.showPreferences = function(){
+
+};
+
 Person.prototype.showEmotions = function(){
-
-  //$('.avatar[data-id="'+this.options.id+'"]')
-
-
-}
-
-
-
-Person.prototype.searchIngredient = function(ingredient){
-
-  if(this.options.likes.indexOf(ingredient) > -1){
-    return 'like';
-  }
-  if(this.options.dislikes.indexOf(ingredient) > -1){
-    return 'dislike';
-  }
-
-  return 'none';
-
-
-  /*
-  var thinkingBubble = $('<div>')
-                        .addClass('thinkingBubble')
-                        .attr('data-id',this.id);
-  var thinkingLikes = $('<div>')
-                        .addClass('thinkingLikes')
-                        .attr('data-id',this.id);
-  var thinkingDisLikes = $('<div>')
-                        .addClass('thinkingDisLikes')
-                        .attr('data-id',this.id);
-  var thinkingAllergens = $('<div>')
-                        .addClass('thinkingAllergens')
-                        .attr('data-id',this.id); */
-/*  for(var i=0; ingredients.length >= i; i++)
-  {
-  //likes?
-  if(this.options.likes.indexOf(ingredients[i]) > -1){
-
-  };
-  //dislikes?
-  if(this.options.dislikes.indexOf(ingredients[i]) > -1){
-
-
-  };
-  //allergene?
-  if(this.options.allergens.indexOf(ingredients[i]) > -1){
-
-  };
-  //display thinking bubble
-}
-*/
 
 };
 
 var Recipe = function(optionsObj){
   //console.log('optionen vorher',optionsObj);
-  this.sortNumber = 0;
-  this.active = false;
   this.options = $.extend({
       name : '',
       filename : '',
@@ -184,7 +129,7 @@ var Recipe = function(optionsObj){
       level : 2,
       duration : '30 min',
       foto : 'no-img.jpg',
-      //sortNumber: 0,
+      sortNumber: 0,
       index: -1
     }, optionsObj);
 
@@ -200,15 +145,9 @@ var Recipe = function(optionsObj){
   Recipe.prototype.getCount = function(type){
     switch(type){
       case 'likes':
-          var likes = this.searchIngredients(allLikes);
-          this.setLikes(likes);
-          console.log('sortnumber refreshed 3',this.sortNumber);
-          return likes.length;
+          return this.searchIngredients(allLikes).length;
       case 'dislikes':
-          var dislikes = this.searchIngredients(allDisLikes);
-          this.setDisLikes(dislikes);
-          console.log('sortnumber refreshed 3',this.sortNumber);
-          return dislikes.length;
+          return this.searchIngredients(allDisLikes).length;
       case 'allergens':
           return false;
 
@@ -287,13 +226,11 @@ Recipe.prototype.searchAllergens = function(allergenCodes){
 
 }
 
-Recipe.prototype.setLikes = function(likes){
-  if(typeof(this.options.likes) == 'undefined') this.options.likes = [];
-  //this.options.likes = [];
-  this.options.likes.push(likes);
+Recipe.prototype.searchAllergens = function(allergenCodes){};
 
-    this.refreshSortNumber();
-    console.log('sortnumber refreshed 2',this.sortNumber);
+Recipe.prototype.setLikes = function(likes){
+  this.options.likes.push(likes);
+  this.options.sortNumber+=1;
 
 };
 
@@ -302,29 +239,24 @@ Recipe.prototype.removeLikes = function(likes){
     var index = this.options.likes.indexOf(val);
     if(index){
       this.options.likes.splice(index,1);
-      this.refreshSortNumber();
+      this.options.sortNumber-=1;
     }
   });
 
 };
 
-Recipe.prototype.refreshSortNumber = function(){
-  this.sortNumber = ((this.options.dislikes)? (-this.options.dislikes.length):0) + ((this.options.likes)? (this.options.likes.length):0);
-  console.log('sortnumber refreshed',this.sortNumber);
-}
+Recipe.prototype.getLikes = function(){
+  return(this.options.likes.length()-1);
+};
 
-Recipe.prototype.setDisLikes = function(dislikes){
-  if(typeof(this.options.dislikes) == 'undefined') this.options.dislikes = [];
+Recipe.prototype.setDislikes = function(dislikes){
   this.options.dislikes.push(dislikes);
-  this.refreshSortNumber();
-  console.log('sortnumber refreshed 2',this.sortNumber);
-  //console.log('dislikes sortnumber',this.sortNumber, dislikes.length);
-  //this.sortNumber-=dislikes.length;
+  this.options.sortNumber-=1;
 
 };
 Recipe.prototype.setAllergens = function(allergen_codes){
-  this.options.allergens.push(allergen_codes);
-  this.sortNumber=this.sortNumber-3;
+  this.options.dislikes.push(dislikes);
+  this.options.sortNumber-=3;
 
 };
 
@@ -349,7 +281,7 @@ Array.prototype.unique = function(){
 };*/
 
 var showRecipeEmotions = function(event){
-  console.log('this object: ',loadedRecipes[$(this).attr('data-index')]);
+  console.log('this object: ',this);
 
   //ingredient highlighting
 
@@ -362,10 +294,7 @@ var sortRecipes = function(recipesArray){
   //1 like zählt 1
   //1 dislike zählt -1
   //1 allergen zählt -3
-//  var sortedArray = recipesArray;
-console.log('vor dem sortieren:', recipesArray);
-   recipesArray.sort(function(a,b){return b.sortNumber-a.sortNumber});
-   console.log('nach dem sortieren:', recipesArray);
+  recipesArray.sort(function(a,b){return b.sortNumber-a.sortNumber});
 }
 
 var initializeAllergens = function(responseData){
@@ -407,7 +336,6 @@ var initializeIngredients = function(responseData){
     var img = $('<img>')
                 .attr('src', ingredientsPath+val.ingredient_cat+'/'+val.ingredient_img)
                 .attr('title', val.ingredient_name) //für tooltip
-                .attr('name', val.ingredient_name) //für tooltip
                 .attr('data-id', val.ingredient_id)
                 .attr('data-cat',val.ingredient_cat)
                 .addClass('ingredient');
@@ -482,14 +410,6 @@ var initializeEaters = function(responseData){
 
     console.log(p);
 
-  /*  $('<object>')
-      .addClass('avatar')
-      .attr('data',eatersPath+val.eater_avatar)
-      .attr('title', val.eater_name)
-      .attr('name', val.eater_name)
-      .attr('data-id', val.eater_id)
-      .appendTo('#eaterOrigin');*/
-
 
     $('<img>')
     //          .addClass('eater')
@@ -521,12 +441,12 @@ var defineDragDropPersons = function(){
     classes: {
       "ui-draggable-dragging": "avatarDraggable"
     },
-      // snap: ".chair",
-    //snapTolerance: 50,
+       snap: ".chair",
+    snapTolerance: 50,
     helper: 'clone',
    zIndex: 11,
     revert: 'invalid'
-  }); // draggable
+  }); //ingredient draggable
 
     $( ".chair" ).droppable({
       /*classes: {
@@ -664,26 +584,15 @@ var refreshRecipes = function(){
   console.log('removing recipes ', $('.recipe','#recipes'));
   $('.recipe','#recipes').remove();
 
-  //  console.log('active recipes ', activeRecipes);
+    console.log('active recipes ', activeRecipes);
 
-//sortRecipes(loadedRecipes);
-
-$.each(loadedRecipes,function(index, val){
-  if(val.active == true){
-    console.log('adding to screen: ',loadedRecipes[index]);
-    loadedRecipes[index].appendToScreen();
-
-  }else console.log('not active: ',loadedRecipes[index]);
-});
-/*
-  sortedRecipes.forEach(function(val,index){
+  activeRecipes.forEach(function(val,index){
   if(val==true){
         console.log('adding: ',loadedRecipes[index]);
         loadedRecipes[index].appendToScreen();
     }
 
   });
-  */
 
 
 }
@@ -849,78 +758,6 @@ var handlePersonDetail = function(){
 
 }
 
-var handleMouseOverIngredient = function(event){
-
-  var ingredientName = $(this).attr('name');
-
-  //highlight avatar
-  $.each($('.avatar'), function(index, val){
-  //  console.log('object of person ',persons[$(this).attr('data-id')]);
-    var p = persons[$(this).attr('data-id')];
-
-    switch(p.searchIngredient(ingredientName)){
-      case 'like':
-          $(this).addClass('highlightLike');
-        break;
-      case 'dislike':
-          $(this).addClass('highlightDislike');
-        break;
-      case 'none':
-        break;
-    }
-
-  });
-
-  //highlight recipe
-  $.each(loadedRecipes, function(index,recipe){
-    if(recipe.searchIngredient(ingredientName)){
-      console.log('data-index ',recipe.options.index);
-      $('.recipe[data-index="'+recipe.options.index+'"]').addClass('highlight');
-    }
-  })
-
-}
-
-var handleMouseOverEater = function(event){
-
-  var eaterId = $(this).attr('data-id');
-  $.each($('.ingredientDropped'), function(index, val){
-    console.log('name of ingredient ', $(this).attr('name'));
-    var p = persons[eaterId];
-
-
-    switch(p.searchIngredient($(this).attr('name'))){
-      case 'like':
-          $(this).addClass('highlightLike');
-        break;
-      case 'dislike':
-          $(this).addClass('highlightDislike');
-        break;
-      case 'none':
-        break;
-    }
-
-  });
-}
-
-var handleMouseOverRecipe = function(event){
-
-  var rIndex = $(this).attr('data-index');
-  var recipe = loadedRecipes[rIndex];
-
-  $.each($('.ingredientDropped'), function(index, val){
-    console.log('name of ingredient ', $(this).attr('name'));
-    var ingredientName = $(this).attr('name');
-
-    if(recipe.searchIngredient(ingredientName)){
-      $(this).addClass('highlight');
-    }
-
-  });
-}
-
-
-
 
 /****************************** Event Listener ********************************/
 
@@ -954,42 +791,26 @@ $(document).on('dblclick','.ingredientDropped',function(){
   $('div[data-cat="'+$(this).attr('data-cat')+'"]','#ingredientAccordion').append($(this).detach().removeClass('ingredientDropped').addClass('ingredient'));
 });
 
+/*
+$(document).on('dblclick','.avatarDropped',function(){
+  console.log('remove avatar from chair');
 
-//*** Ingredient Mouseover ***/
-$(document).on('mouseover','.ingredient', handleMouseOverIngredient );
-$(document).on('mouseover','.ingredientDropped', handleMouseOverIngredient );
+  $('#eaterOrigin').append($(this).detach().removeClass('sittingAvatar').addClass('avatar'));
+});
+*/
 
-$(document).on('mouseout','.ingredient' ,function(event){
-  $('.highlightDislike').removeClass('highlightDislike');
-  $('.highlightLike').removeClass('highlightLike');
+//*** Ingredient tooltip ***/
+$(document).on('mouseover','.ingredient',function(event){
+/*  $('span[data-img-id="'+$(this).attr('data-id')+'"]')
+  .css({left:event.pageX, top:event.pageY})
+  .show();*/
 });
 
-$(document).on('mouseout','.ingredientDropped' ,function(event){
-  $('.highlightDislike').removeClass('highlightDislike');
-  $('.highlightLike').removeClass('highlightLike');
-  $('.highlight').removeClass('highlight');
+$(document).on('mouseout','.ingredient',function(event){
+  /*
+$('span[data-img-id="'+$(this).attr('data-id')+'"]').hide();
+*/
 });
-
-
-
-//*** Person Mouseover ***/
-$(document).on('mouseover','.avatar', handleMouseOverEater);
-
-$(document).on('mouseout','.avatar' ,function(event){
-  $('.highlightDislike').removeClass('highlightDislike');
-  $('.highlightLike').removeClass('highlightLike');
-});
-
-/*** Recipe Mouseover ***/
-
-$(document).on('mouseover','.recipe', handleMouseOverRecipe);
-$(document).on('mouseout','.recipe', function(event){
-    $('.highlight').removeClass('highlight');
-
-});
-
-
-
 
 $(document).on('change','input[type="checkbox"]:checked',function(event){
   console.log('checked filename',$(this).attr('data-filename'));
@@ -999,8 +820,7 @@ $(document).on('change','input[type="checkbox"]:checked',function(event){
 
 
   $.each(recipeFiles[$(this).attr('data-filename')], function(index,val){
-      loadedRecipes[val].active = true;
-    //activeRecipes[val] = true;
+    activeRecipes[val] = true;
   });
 
   refreshRecipes();
@@ -1009,8 +829,7 @@ $(document).on('change','input[type="checkbox"]:checked',function(event){
 $(document).on('change','input[type="checkbox"]:not(:checked)',function(event){
   console.log('checkbox unchecked');
   $.each(recipeFiles[$(this).attr('data-filename')], function(index,val){
-    loadedRecipes[val].active = false;
-    //activeRecipes[val] = false;
+    activeRecipes[val] = false;
   });
 
   refreshRecipes();

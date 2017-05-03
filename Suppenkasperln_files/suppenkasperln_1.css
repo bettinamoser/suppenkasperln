@@ -343,21 +343,6 @@ vertical-align: top;
 
 }
 
-.highlight{
-  background-color: rgba(220,144,21,0.3) !important;
-
-}
-
-.highlightLike{
-  background-color: rgba(220,144,21,0.3);
-
-}
-
-.highlightDislike{
-  background-color: rgba(15,151,173,0.2);
-
-}
-
 
 
 
@@ -429,7 +414,7 @@ div#likes, div#dislikes, div#allergens{
   float: left;
   margin: 1%;
   padding-top: 1em;
-  width: 48%;
+  width: 31%;
   height: 120px;
   margin-top: 50%;
 

@@ -124,6 +124,7 @@ if( isset($_REQUEST["type"])){
 
     }
 */
+  echo get_from_db("SELECT eater_preferences.ingredient_id, ingredient_name, likes FROM `eater_preferences` JOIN eaters ON eater_preferences.eater_id=eaters.eater_id JOIN ingredients ON eater_preferences.ingredient_id=ingredients.ingredient_id WHERE eaters.eater_id=".$_POST['id']);
       break;
     case "set_eater":
 /*
@@ -308,9 +309,9 @@ $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
     }
 */
     if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-        echo "success";
+      //  echo '{"success" : "datei wurde erfolgreich hochgeladen"}';
     } else {
-        echo "{'error':'fehler bei upload'}";
+        echo '{"error" : "fehler bei upload"}';
     }
 //}
    /*
