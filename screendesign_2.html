@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+	<title>Suppenkasperln</title>
+	<meta charset="utf-8">
+
+	<script src="jquery-3.1.1.min.js"></script>
+	<script src="jquery_ui/jquery-ui.js"></script>
+
+	<script src="suppenkasperln_2.js"></script>
+
+
+	<link href="suppenkasperln_2.css" rel="stylesheet">
+	<link rel="stylesheet" href="jquery_ui/jquery-ui.css">
+</head>
+<body>
+  <div id="wrapper">
+    <div class="row" id="header">
+      <div class="col-9 col-m-12"> <img src="img/suppenkasperln.png" alt="Suppenkasperln Rezeptsuche Logo" > </div>
+      <div class="col-3 col-m-12"></div>
+    </div>
+    <div class="row" id="mainScreen">
+				<ul id="tabNav">
+					<li class="tab tabSelected" ><a href="#eatersAll"><img src="img/tab_green.png" ></a></li>
+					<li class="tab" ><a href="#ingredients"><img src="img/tab_orange.png" ></a></li>
+					<li class="tab" ><a href="#recipes"><img src="img/tab_cyan.png" ></a></li>
+				</ul>
+
+				<div><img id="chairLeft" class="chair" src="img/chair.png"></div>
+				<div><img id="chairLeftMiddle" class="chair" src="img/chair.png"></div>
+				<div><img id="chairMiddle" class="chair" src="img/chair.png"></div>
+				<div><img id="chairRightMiddle" class="chair" src="img/chair.png"></div>
+				<div><img id="chairRight" class="chair" src="img/chair.png"></div>
+
+
+
+				<div id="eaters" >
+					<h1>Personen Detail</h1>
+					<div id="eaterOptions">	</div>
+
+							</object>
+
+						<div id="eaterPreferences">
+							<div id="likes"><img src="img/heart.png"></div>
+							<div id="dislikes"><img src="img/broken_heart.png"></div>
+						<!--	<div id="allergens"><img src="img/warning.png"></div> -->
+						</div>
+				</div>
+
+
+									<div id="eatersAll" class="active">
+										<h1>Personen</h1>
+										<div id="eaterOrigin">
+											<!-- location of eater images -->
+										</div>
+									</div>
+				<div id="ingredients" >
+					<h1>Zutaten</h1>
+					<div id="ingredientAccordion">
+					</div>
+				</div>
+
+				<div id="dropIngredients"> <!-- dropzone for Ingredients --></div>
+
+				<div id="recipes">
+					<h1>Rezepte</h1>
+				</div>
+
+				<div id="recipeDetail">
+
+					<h1>Rezeptname</h1>
+					<p>Kurzbeschreibung</p>
+					<img src="img/no-img.jpg" alt="Recipe Image">
+					<div id="recipeLikesDislikes"><div class='likeSymbol'></div><div class='dislikeSymbol'></div></div>
+					<div id="recipeOptions"><span>Level: 1</span><span>Dauer: 20min</span><span>Portionen: 4</span></div>
+					<div id="recipeIngredientDisplay"><ul><li>500g Mehl</li><li>3 Eier</li><li>200g Zucker</li></ul></div>
+					<h3>Zubereitung</h3>
+					<p>Zutaten schneiden<br>alles in den Topf mit Wasser<br>10 Minuten kochen<b> Fertig!!</p>
+
+				</div>
+
+			<div id="dropRecipes"><fieldset id="fileCheckboxes"></fieldset><!-- dropzone for Recipes --></div>
+
+
+
+<img id="table" src="img/table.png">
+    </div>
+
+    <div class="row" id="footer">
+      <div class="col-12 col-m-12"> © 2017 Bettina Moser</div>
+    </div>
+
+
+
+
+
+
+  </div>
+
+
+
+
+</body>
+</html>
